@@ -182,11 +182,11 @@ jobs:
           FAILED=0
           for APK in $APKS; do
             echo ""
-            echo "===== apksigner verify --verbose --print-certificate : $APK ====="
+            echo "===== apksigner verify --verbose --print-certs : $APK ====="
             OUT=""
             RC=0
             if [ -n "$APKSIGNER" ]; then
-              OUT=$("$APKSIGNER" verify --verbose --print-certificate --min-sdk-version 24 "$APK" 2>&1) || RC=$?
+              OUT=$("$APKSIGNER" verify --verbose --print-certs --min-sdk-version 24 "$APK" 2>&1) || RC=$?
               echo "apksigner exit code: $RC"
               echo "$OUT"
             else
@@ -198,6 +198,11 @@ jobs:
             echo ""
             echo "===== structural signature check : $APK ====="
             python3 scripts/check_apk_signature.py "$APK" || FAILED=1
+
+            if [ "$RC" -eq 0 ] && printf '%s' "$OUT" | grep -q "^Verifies"; then
+              VERDICT=$(printf '%s' "$OUT" | grep -E "^Verifies|Verified using|^Signer #1 certificate DN" | head -n 6 | sed 's/%/%25/g; s/\r/%0D/g; s/$/%0A/' | tr -d '\n')
+              echo "::notice::$(basename "$APK") signature verified -> $VERDICT"
+            fi
 
             if printf '%s' "$OUT" | grep -q "DOES NOT VERIFY"; then
               echo "::error::$APK has an INVALID signature - Android will reject it."
