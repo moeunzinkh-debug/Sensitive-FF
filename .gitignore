@@ -20,3 +20,7 @@ keystore.properties
 
 # OS
 Thumbs.db
+
+# CI build logs
+build-*.log
+pr-comment.md

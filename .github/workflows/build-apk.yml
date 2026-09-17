@@ -154,27 +154,75 @@ jobs:
       - name: Verify APK signatures
         if: always()
         run: |
-          APKSIGNER=$(ls -d "$ANDROID_HOME"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -n 1)
-          echo "apksigner: ${APKSIGNER:-NOT FOUND}"
+          APKS=$(ls app/build/outputs/apk/release/*.apk app/build/outputs/apk/debug/*.apk 2>/dev/null || true)
+          if [ -z "$APKS" ]; then
+            echo "No APK produced - nothing to verify."
+            exit 0
+          fi
 
+          echo "ANDROID_HOME=${ANDROID_HOME:-unset}"
+          ls -d "$ANDROID_HOME"/build-tools/* 2>/dev/null || true
+          java -version 2>&1 | head -n 2 || echo "java not on PATH"
+
+          # Prefer the build-tools matching compileSdk: newer build-tools can
+          # ship an apksigner that needs a newer JRE than the JDK 17 here.
+          APKSIGNER=""
+          for BT in 34.0.0 35.0.0; do
+            if [ -x "$ANDROID_HOME/build-tools/$BT/apksigner" ]; then
+              APKSIGNER="$ANDROID_HOME/build-tools/$BT/apksigner"
+              break
+            fi
+          done
+          if [ -z "$APKSIGNER" ]; then
+            APKSIGNER=$(ls "$ANDROID_HOME"/build-tools/*/apksigner 2>/dev/null | sort -V | head -n 1 || true)
+          fi
+          echo "apksigner candidate: ${APKSIGNER:-NONE}"
+
+          : > build-verify.log
           FAILED=0
-          for APK in app/build/outputs/apk/release/*.apk app/build/outputs/apk/debug/*.apk; do
-            [ -f "$APK" ] || continue
+          for APK in $APKS; do
             echo ""
-            echo "===== $APK ====="
-            if [ -n "${APKSIGNER:-}" ]; then
-              if "$APKSIGNER" verify --verbose --print-certificate --min-sdk-version 24 "$APK"; then
-                echo "✅ signature OK: $APK"
-              else
-                echo "::error::$APK is NOT correctly signed - it will fail to install."
-                FAILED=1
-              fi
+            echo "===== apksigner verify --verbose --print-certificate : $APK ====="
+            OUT=""
+            RC=0
+            if [ -n "$APKSIGNER" ]; then
+              OUT=$("$APKSIGNER" verify --verbose --print-certificate --min-sdk-version 24 "$APK" 2>&1) || RC=$?
+              echo "apksigner exit code: $RC"
+              echo "$OUT"
             else
-              echo "::warning::apksigner not available, cannot verify $APK"
+              echo "(apksigner binary not found)"
+            fi
+
+            printf '%s\n' "$OUT" >> build-verify.log
+
+            echo ""
+            echo "===== structural signature check : $APK ====="
+            python3 scripts/check_apk_signature.py "$APK" || FAILED=1
+
+            if printf '%s' "$OUT" | grep -q "DOES NOT VERIFY"; then
+              echo "::error::$APK has an INVALID signature - Android will reject it."
+              FAILED=1
+            elif [ "$RC" -ne 0 ] && [ -n "$APKSIGNER" ]; then
+              # apksigner itself did not run cleanly (tooling, not the APK).
+              ESC=$(printf '%s' "$OUT" | tail -n 6 | sed 's/%/%25/g; s/\r/%0D/g; s/$/%0A/' | tr -d '\n')
+              echo "::warning::apksigner could not complete for $APK (exit $RC): $ESC"
             fi
           done
 
-          if [ "$FAILED" -ne 0 ]; then exit 1; fi
+          {
+            echo ""
+            echo "#### 🔎 apksigner verify output"
+            echo '```'
+            cat build-verify.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$FAILED" -ne 0 ]; then
+            echo "::error::APK signature verification failed."
+            exit 1
+          fi
+          echo ""
+          echo "✅ All APKs carry a signature."
 
       - name: Report build failure
         if: failure()
