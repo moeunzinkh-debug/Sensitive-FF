@@ -4,8 +4,9 @@
 
 > **App Name:** Sensitive Pro  
 > **Package:** `com.sensitivepro.app`  
-> **Version:** 1.0.0 (1)  
-> **Min SDK:** 24 (Android 7.0) | Target SDK 34 | Compile SDK 34
+> **Version:** 1.0.1 (2)  
+> **Min SDK:** 24 (Android 7.0) | Target SDK 34 | Compile SDK 34  
+> **Signing:** Release APK ចុះហត្ថលេខា v1+v2+v3 (អាចដំឡើងបាន)
 
 ---
 
@@ -54,6 +55,69 @@
 
 ---
 
+## 🚨 ដោះស្រាយបញ្ហា "មិនមានសុវត្ថិភាព / Failed install"
+
+> **រោគវិនិច្ឆ័យ (អ្វីដែលខុសពីមុន):** ឯកសារ `app/build.gradle.kts` **មិនមាន `signingConfig`** សម្រាប់ build type `release` ទេ។
+> ដូច្នេះ `./gradlew assembleRelease` បង្កើតឯកសារ **`app-release-unsigned.apk`** (APK គ្មានហត្ថលេខា)។
+> Android **មិនអនុញ្ញាតឲ្យដំឡើង APK គ្មានហត្ថលេខាទេ** — Package Manager បដិសេធភ្លាមៗ (`INSTALL_PARSE_FAILED_NO_CERTIFICATES`
+> ឬ `INSTALL_FAILED_INVALID_APK`) ហើយអេក្រង់បង្ហាញ **"App not installed" / "failed install"**។
+> ដូចគ្នាដែរ Play Protect / Samsung / MIUI ស្កេនឃើញថាគ្មាន certificate ដែលអាចទុកចិត្តបាន
+> ទើបព្រមាន **"មិនមានសុវត្ថិភាព" (unsafe)**។ ការចុច "បង្ខំដំឡើង" ក៏មិនអាចជោគជ័យ ព្រោះវាមិនមែនជាការព្រមានទេ — វាជាការបដិសេធពីប្រព័ន្ធ។
+
+### ✅ អ្វីដែលបានជួសជុល
+
+| ឯកសារ | ការផ្លាស់ប្តូរ |
+|---|---|
+| `app/build.gradle.kts` | បន្ថែម `signingConfigs { create("release") }` + `buildTypes.release.signingConfig` + បើក **v1 + v2 + v3 signing** (v1 ចាំបាច់សម្រាប់ Android 7.0) |
+| `keystore.properties.example` | គំរូឯកសារ keystore (ចម្លងទៅ `keystore.properties`) |
+| `.github/workflows/build-apk.yml` | បង្កើត/ប្រើ keystore មុន build + ជំហាន **`apksigner verify`** ដើម្បីបញ្ជាក់ថា APK មានហត្ថលេខាពិត |
+| `.gitignore` | ទប់ស្កាត់ការ commit `*.p12`, `keystore.properties` (ពាក្យសម្ងាត់) |
+
+### 🔑 របៀបបង្កើត Keystore (ធ្វើម្តង ប្រើបានរហូត)
+
+```bash
+keytool -genkeypair -v \
+  -keystore sensitive-pro.p12 \
+  -storetype PKCS12 \
+  -keyalg RSA -keysize 2048 -validity 10950 \
+  -alias sensitive-pro \
+  -storepass ពាក្យសម្ងាត់របស់អ្នក \
+  -dname "CN=Sensitive Pro, OU=Mobile, O=Sensitive Pro, L=Phnom Penh, C=KH"
+
+cp keystore.properties.example keystore.properties   # កែ storePassword / keyPassword
+./gradlew assembleRelease
+# APK ដែលដំឡើងបាន: app/build/outputs/apk/release/app-release.apk
+```
+
+> ⚠️ **សំខាន់:** រក្សាទុក `sensitive-pro.p12` ឲ្យបានល្អ។ ការ update កម្មវិធីត្រូវតែចុះហត្ថលេខា
+> ដោយ **key ដដែល** បើមិនដូច្នោះទេ Android នឹងបដិសេធ (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`)។
+> កុំ commit ឯកសារ keystore ឬពាក្យសម្ងាត់ចូល Git។
+
+### 🤖 សម្រាប់ GitHub Actions (ឲ្យ APK មាន key ថេរ)
+
+បន្ថែម **Settings → Secrets and variables → Actions → New repository secret**:
+
+| Secret | តម្លៃ |
+|---|---|
+| `RELEASE_KEYSTORE_BASE64` | `base64 -w 0 sensitive-pro.p12` |
+| `RELEASE_STORE_PASSWORD` | ពាក្យសម្ងាត់ keystore |
+| `RELEASE_KEY_ALIAS` | `sensitive-pro` |
+| `RELEASE_KEY_PASSWORD` | ពាក្យសម្ងាត់ key |
+
+បើមិនមាន secret ទេ workflow នឹងបង្កើត keystore បណ្តោះអាសន្នសម្រាប់ run នោះ —
+APK នៅតែ **មានហត្ថលេខា និងដំឡើងបាន** ប៉ុន្តែត្រូវ **Uninstall កម្មវិធីចាស់ជាមុនសិន** បើវាចុះហត្ថលេខាដោយ key ផ្សេង។
+
+### 📲 បើទូរស័ព្ទនៅតែព្រមាន "App not safe" (បន្ទាប់ពី APK មានហត្ថលេខាហើយ)
+
+នេះជាការព្រមានធម្មតាសម្រាប់កម្មវិធីដែលមិនមកពី Play Store (sideload) — វា **មិនមែន** បញ្ហា "failed install" ទៀតទេ៖
+
+- **ទូរស័ព្ទទូទៅ:** Settings → Security → **Install unknown apps** → អនុញ្ញាតឲ្យ Chrome / Files → ចុច **Install anyway**
+- **Samsung:** Settings → Biometrics and security → Install unknown apps → អនុញ្ញាត → បើ Play Protect រាំងខ្ទប់ ចុច **More details → Install anyway**
+- **Xiaomi / MIUI:** Developer options → បើក **Install via USB** + **USB debugging** (បើត្រូវការ) និងបិទ **MIUI optimization** បើមានបញ្ហា
+- **បញ្ហា "App not installed" នៅតែមាន:** Uninstall កម្មវិធីចាស់សិន (signature ខុសគ្នា) ឬពិនិត្យថាទូរស័ព្ទមាន Android 7.0 (API 24) ឡើងទៅ និងមានទំហំទំនេរគ្រប់គ្រាន់
+
+---
+
 ## 🛠️ Build APK
 
 ### GitHub Actions (Workflow Build APK)
@@ -80,7 +144,8 @@ jobs:
 ./gradlew assembleDebug
 # APK: app/build/outputs/apk/debug/app-debug.apk
 ./gradlew assembleRelease
-# APK: app/build/outputs/apk/release/app-release-unsigned.apk
+# APK ដែលដំឡើងបាន (មាន keystore): app/build/outputs/apk/release/app-release.apk
+# បើគ្មាន keystore: app-release-unsigned.apk  → ដំឡើងមិនបានទេ
 ```
 
 ---
