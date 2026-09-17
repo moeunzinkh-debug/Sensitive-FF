@@ -22,9 +22,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
@@ -36,13 +33,12 @@ jobs:
       - name: Ensure Gradle Wrapper JAR
         run: |
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-            echo "⚠️ gradle-wrapper.jar missing, trying to download..."
+            echo "⚠️ gradle-wrapper.jar missing, generating..."
             mkdir -p gradle/wrapper
-            # Try multiple sources
-            curl -L --retry 3 -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/master/gradle/wrapper/gradle-wrapper.jar || echo "curl github failed"
-            if [ ! -f gradle/wrapper/gradle-wrapper.jar ] || [ ! -s gradle/wrapper/gradle-wrapper.jar ]; then
-              echo "Downloading via services.gradle.org fallback - generating wrapper"
-              gradle wrapper --gradle-version 8.5 || echo "gradle wrapper failed"
+            # Use gradle to generate wrapper (setup-gradle already provides gradle)
+            gradle wrapper --gradle-version 8.5 || echo "gradle wrapper generate failed, trying curl"
+            if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+              curl -L --retry 3 -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/master/gradle/wrapper/gradle-wrapper.jar || true
             fi
             ls -lh gradle/wrapper/ || true
           else
@@ -50,13 +46,18 @@ jobs:
             ls -lh gradle/wrapper/
           fi
 
-      - name: Install Android platforms
+      - name: Setup Android SDK (use preinstalled SDK)
         run: |
-          sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools" || true
-          yes | sdkmanager --licenses || true
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          ls -lh $ANDROID_HOME/cmdline-tools 2>&1 | head -n 20 || true
+          ls -lh $ANDROID_HOME/platforms 2>&1 | head -n 20 || true
+          # Ensure SDK components are installed (runner already has them, install if missing)
+          yes | sdkmanager --licenses 2>&1 | tail -n 20 || true
+          sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools" 2>&1 | tail -n 20 || echo "sdkmanager install attempted"
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace --info
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Build Release APK (unsigned)
         run: ./gradlew assembleRelease --stacktrace
