@@ -17,9 +17,16 @@ data class Sensitivity(
 
     companion object {
         /**
-         * Free Fire's sensitivity sliders run from 0 to 200. Garena expanded the
-         * old 0-100 range, so a value of 100 today is only half as fast as the
-         * previous maximum.
+         * Free Fire's sensitivity sliders run from 0 to 200.
+         *
+         * This is an official Garena change, not a tuning preference. From the
+         * Free Fire patch notes (ff.garena.com/en/article/1332/):
+         * "Increased the sensitivity cap to 200. Players can now adjust their
+         * sensitivity settings within a greater range."
+         *
+         * A value of 100 therefore is only about half the available camera
+         * speed; recommendations that were written for the old 0-100 cap are
+         * obsolete.
          */
         const val MAX = 200
         const val MIN = 0
