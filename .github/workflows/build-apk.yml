@@ -146,6 +146,46 @@ jobs:
           set -o pipefail
           ./gradlew assembleDebug --stacktrace --console=plain 2>&1 | tee build-debug.log
 
+      - name: Run unit tests (sensitivity data)
+        run: |
+          set -o pipefail
+          ./gradlew testDebugUnitTest --console=plain 2>&1 | tee build-unittest.log
+
+      - name: Summarise unit tests
+        if: always()
+        run: |
+          python3 - <<'EOF' > build-unittest-summary.txt
+          import glob, os, xml.etree.ElementTree as ET
+          files = glob.glob('app/build/test-results/testDebugUnitTest/*.xml')
+          if not files:
+              print('no unit test results found')
+              raise SystemExit(0)
+          total = failures = errors = skipped = 0
+          for f in sorted(files):
+              r = ET.parse(f).getroot()
+              for suite in ([r] if r.tag == 'testsuite' else r.iter('testsuite')):
+                  total += int(suite.get('tests', 0))
+                  failures += int(suite.get('failures', 0))
+                  errors += int(suite.get('errors', 0))
+                  skipped += int(suite.get('skipped', 0))
+          print(f'unit tests: {total} run, {failures} failed, {errors} errored, {skipped} skipped')
+          for f in sorted(files):
+              for case in ET.parse(f).getroot().iter('testcase'):
+                  bad = list(case.iter('failure')) + list(case.iter('error'))
+                  mark = 'FAIL' if bad else 'pass'
+                  print(f'  [{mark}] {case.get("classname")}.{case.get("name")}')
+                  for b in bad:
+                      print('        ' + (b.get('message') or '').splitlines()[0][:200])
+          EOF
+          cat build-unittest-summary.txt
+          {
+            echo ""
+            echo "#### 🧪 Unit tests (sensitivity scale)"
+            echo '```'
+            cat build-unittest-summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Build Release APK (signed)
         run: |
           set -o pipefail
@@ -325,7 +365,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: gradle-build-logs
-          path: build-*.log
+          path: |
+            build-*.log
+            build-unittest-summary.txt
           if-no-files-found: warn
 
       - name: Upload Debug APK

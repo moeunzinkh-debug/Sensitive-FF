@@ -8,7 +8,23 @@ data class Sensitivity(
     val sniper: Int,
     val freeLook: Int,
     val drag: Int
-)
+) {
+    /** Every value, in the order Free Fire lists them in the Sensitivity menu. */
+    fun values(): List<Int> = listOf(general, redDot, scope2x, scope4x, sniper, freeLook, drag)
+
+    /** True when every value can actually be dialled into the game's sliders. */
+    fun isWithinGameRange(): Boolean = values().all { it in MIN..MAX }
+
+    companion object {
+        /**
+         * Free Fire's sensitivity sliders run from 0 to 200. Garena expanded the
+         * old 0-100 range, so a value of 100 today is only half as fast as the
+         * previous maximum.
+         */
+        const val MAX = 200
+        const val MIN = 0
+    }
+}
 
 enum class WeaponCategory(val displayKh: String, val displayEn: String, val colorRes: String, val icon: String) {
     SMG("កាំភ្លើងខ្លីបាញ់លឿន", "SMG", "#FF6B00", "🔫"),
