@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="បង្កើតម៉ូដែលសែនស៊ីធីវអូស"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="បង្កើតការកំណត់សែនស៊ីធីវផ្ទាល់ខ្លួនតាមទូរស័ព្ទរបស់អ្នក"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
+
+        <!-- Inputs -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/card_dark"
+            app:cardCornerRadius="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ទំហំអេក្រង់ (អ៊ីញ)" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <SeekBar android:id="@+id/seekScreen" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:max="40" android:progress="15" android:progressTint="@color/primary" android:thumbTint="@color/primary"/>
+                <TextView android:id="@+id/tvScreenValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="6.5 អ៊ីញ" android:textColor="@color/primary" android:textSize="13sp" android:textStyle="bold"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="RAM (GB)" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <SeekBar android:id="@+id/seekRam" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:max="12" android:progress="6" android:progressTint="@color/primary" android:thumbTint="@color/primary"/>
+                <TextView android:id="@+id/tvRamValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="6 GB" android:textColor="@color/primary" android:textSize="13sp" android:textStyle="bold"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="កម្រិត DPI" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <SeekBar android:id="@+id/seekDpi" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:max="100" android:progress="40" android:progressTint="@color/primary" android:thumbTint="@color/primary"/>
+                <TextView android:id="@+id/tvDpiValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="420 DPI" android:textColor="@color/primary" android:textSize="13sp" android:textStyle="bold"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="វិធីអូស" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <RadioGroup android:id="@+id/rgFinger" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/rb2Finger" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:checked="true" android:text="2 ម្រាម" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                    <RadioButton android:id="@+id/rb3Finger" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:text="3 ម្រាម" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                    <RadioButton android:id="@+id/rb4Finger" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:text="4 ម្រាម" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                </RadioGroup>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="រចនាប័ទ្មលេង" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <RadioGroup android:id="@+id/rgStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/rbRusher" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:checked="true" android:text="វាយលុក" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                    <RadioButton android:id="@+id/rbBalanced" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:text="តុល្យភាព" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                    <RadioButton android:id="@+id/rbSniper" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="@color/primary" android:text="ចម្ងាយឆ្ងាយ" android:textColor="@color/text_primary" android:textSize="12sp"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button android:id="@+id/btnGenerate" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:background="@drawable/bg_button_primary" android:padding="14dp" android:text="⚡ បង្កើតសែនស៊ីធីវ" android:textColor="#FFFFFF" android:textSize="14sp" android:textStyle="bold"/>
+
+        <!-- Result -->
+        <androidx.cardview.widget.CardView android:id="@+id/cardResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:visibility="gone" app:cardBackgroundColor="@color/card_dark" app:cardCornerRadius="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🎯 លទ្ធផលសែនស៊ីធីវរបស់អ្នក" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/>
+                <TextView android:id="@+id/tvResultSubtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="-" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="ទូទៅ" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="Red Dot" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="2x Scope" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                        <TextView android:id="@+id/tvResGeneral" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_gradient_primary" android:padding="12dp" android:text="100" android:textAlignment="center" android:textColor="#FFFFFF" android:textSize="18sp" android:textStyle="bold"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:id="@+id/tvResRedDot" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_card" android:padding="12dp" android:text="95" android:textAlignment="center" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:id="@+id/tvRes2x" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_card" android:padding="12dp" android:text="88" android:textAlignment="center" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="4x Scope" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="Sniper" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@color/surface_dark2" android:padding="10dp" android:text="Free Look" android:textAlignment="center" android:textColor="@color/text_hint" android:textSize="11sp"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+                        <TextView android:id="@+id/tvRes4x" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_card" android:padding="12dp" android:text="82" android:textAlignment="center" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:id="@+id/tvResSniper" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_card" android:padding="12dp" android:text="58" android:textAlignment="center" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                        <View android:layout_width="8dp" android:layout_height="0dp"/>
+                        <TextView android:id="@+id/tvResFreeLook" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_card" android:padding="12dp" android:text="72" android:textAlignment="center" android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="horizontal">
+                    <Button android:id="@+id/btnCopyGen" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:backgroundTint="@color/surface_dark2" android:text="📋 ចម្លង" android:textColor="@color/text_primary" app:cornerRadius="10dp"/>
+                    <View android:layout_width="8dp" android:layout_height="0dp"/>
+                    <Button android:id="@+id/btnShareGen" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:backgroundTint="@color/primary" android:text="↗ ចែករំលែក" android:textColor="#FFFFFF" app:cornerRadius="10dp"/>
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" app:cardBackgroundColor="#1A1A24" app:cardCornerRadius="12dp" app:strokeColor="@color/primary" app:strokeWidth="1dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📖 ពន្យល់ជាភាសាខ្មែរ" android:textColor="@color/primary" android:textSize="13sp" android:textStyle="bold"/>
+                        <TextView android:id="@+id/tvExplain" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:lineSpacingExtra="4dp" android:text="-" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View android:layout_width="match_parent" android:layout_height="24dp"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,152 @@
+<resources>
+    <string name="app_name">Sensitive Pro</string>
+    <string name="app_name_kh">សែនស៊ីធីវ ប្រូ</string>
+    <string name="app_subtitle">កម្មវិធីកំណត់សែនស៊ីធីវសម្រាប់ Free Fire</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">ទំព័រដើម</string>
+    <string name="nav_device">ឧបករណ៍</string>
+    <string name="nav_weapons">អាវុធ</string>
+    <string name="nav_generator">បង្កើត</string>
+
+    <!-- Home -->
+    <string name="home_title">សែនស៊ីធីវ ប្រូ</string>
+    <string name="home_subtitle">ជំនួយការកំណត់សែនស៊ីធីវល្អបំផុតសម្រាប់ Free Fire</string>
+    <string name="home_welcome">សួស្តី! សូមស្វាគមន៍មកកាន់ Sensitive Pro</string>
+    <string name="home_desc">កម្មវិធីនេះជួយអ្នកកំណត់សែនស៊ីធីវ (Sensitivity) ឲ្យសមស្របនឹងទូរស័ព្ទ និងអាវុធនីមួយៗ ដើម្បីបាញ់ក្បាលបានត្រឹមត្រូវ (Headshot) និងអូសបានល្អ (Drag)។</string>
+    <string name="home_feature_device">វិភាគទូរស័ព្ទដោយស្វ័យប្រវត្តិ</string>
+    <string name="home_feature_device_desc">ស្គេនម៉ូដែលទូរស័ព្ទ RAM CPU និងអេក្រង់ដោយស្វ័យប្រវត្តិ ហើយណែនាំសែនស៊ីធីវដែលសាកសមបំផុត</string>
+    <string name="home_feature_weapon">សែនស៊ីធីវតាមអាវុធ</string>
+    <string name="home_feature_weapon_desc">មានអាវុធគ្រប់ប្រភេទ SMG Shotgun Rifle Marksman ជាមួយការកំណត់លម្អិតជាភាសាខ្មែរ</string>
+    <string name="home_feature_drag">ម៉ូដែលអូស (Drag Model)</string>
+    <string name="home_feature_drag_desc">បង្កើតម៉ូដែលអូស Headshot ផ្ទាល់ខ្លួន តាមទំហំអេក្រង់ និង DPI</string>
+    <string name="home_cta_device">ពិនិត្យទូរស័ព្ទខ្ញុំ</string>
+    <string name="home_cta_weapons">មើលអាវុធទាំងអស់</string>
+    <string name="home_stats_weapons">២៥+ អាវុធ</string>
+    <string name="home_stats_categories">៤ ប្រភេទ</string>
+    <string name="home_stats_languages">ខ្មែរ + អង់គ្លេស</string>
+
+    <!-- Device -->
+    <string name="device_title">វិភាគទូរស័ព្ទដោយស្វ័យប្រវត្តិ</string>
+    <string name="device_subtitle">ចុចប៊ូតុងខាងក្រោមដើម្បីស្គេនទូរស័ព្ទរបស់អ្នក</string>
+    <string name="device_scan_btn">🔍 ស្គេនទូរស័ព្ទឥឡូវនេះ</string>
+    <string name="device_scanning">កំពុងស្គេន...</string>
+    <string name="device_info_title">ព័ត៌មានទូរស័ព្ទ</string>
+    <string name="device_model">ម៉ូដែល</string>
+    <string name="device_manufacturer">ក្រុមហ៊ុន</string>
+    <string name="device_android">កំណែ Android</string>
+    <string name="device_ram">RAM</string>
+    <string name="device_cpu">បន្ទះឈីប (CPU)</string>
+    <string name="device_screen">អេក្រង់</string>
+    <string name="device_refresh">អត្រាធ្វើឲ្យស្រស់ (Hz)</string>
+    <string name="device_dpi">ដង់ស៊ីតេ (DPI)</string>
+    <string name="device_performance">កម្រិតដំណើរការ</string>
+    <string name="device_recommend_title">សែនស៊ីធីវដែលបានណែនាំ</string>
+    <string name="device_level_high">កម្រិតខ្ពស់ - ទូរស័ព្ទខ្លាំង</string>
+    <string name="device_level_medium">កម្រិតមធ្យម - ទូរស័ព្ទធម្មតា</string>
+    <string name="device_level_low">កម្រិតទាប - ទូរស័ព្ទខ្សោយ</string>
+    <string name="device_explain_high">ទូរស័ព្ទរបស់អ្នកខ្លាំង អាចប្រើសែនស៊ីធីវខ្ពស់បាន ដើម្បីអូសលឿន និងបាញ់ក្បាលបានងាយ។</string>
+    <string name="device_explain_medium">ទូរស័ព្ទកម្រិតមធ្យម គួរប្រើសែនស៊ីធីវមធ្យម ដើម្បីរក្សាលំនឹង និងកាត់បន្ថយការរអាក់រអួល។</string>
+    <string name="device_explain_low">ទូរស័ព្ទកម្រិតទាប គួរប្រើសែនស៊ីធីវទាបជាង ដើម្បីជៀសវាងការកន្ត្រាក់ និងរក្សាភាពរលូន។</string>
+    <string name="device_general">ទូទៅ</string>
+    <string name="device_red_dot">Red Dot</string>
+    <string name="device_2x">2x Scope</string>
+    <string name="device_4x">4x Scope</string>
+    <string name="device_sniper">Sniper Scope</string>
+    <string name="device_free_look">Free Look</string>
+    <string name="device_copy">ចម្លងការកំណត់</string>
+    <string name="device_copied">បានចម្លង!</string>
+    <string name="device_tip_title">💡 គន្លឹះជាភាសាខ្មែរ</string>
+
+    <!-- Generator -->
+    <string name="generator_title">បង្កើតម៉ូដែលសែនស៊ីធីវអូស</string>
+    <string name="generator_subtitle">បង្កើតការកំណត់សែនស៊ីធីវផ្ទាល់ខ្លួនតាមទូរស័ព្ទរបស់អ្នក</string>
+    <string name="generator_screen_size">ទំហំអេក្រង់ (អ៊ីញ)</string>
+    <string name="generator_ram">RAM (GB)</string>
+    <string name="generator_finger">វិធីអូស</string>
+    <string name="generator_finger_thumb">មេដៃ (2 ម្រាម)</string>
+    <string name="generator_finger_3">3 ម្រាម</string>
+    <string name="generator_finger_4">4 ម្រាម (Claw)</string>
+    <string name="generator_play_style">រចនាប័ទ្មលេង</string>
+    <string name="generator_style_aggressive">វាយលុក (Rusher)</string>
+    <string name="generator_style_balanced">មានតុល្យភាព</string>
+    <string name="generator_style_sniper">អ្នកបាញ់ចម្ងាយឆ្ងាយ</string>
+    <string name="generator_dpi">កម្រិត DPI</string>
+    <string name="generator_generate">⚡ បង្កើតសែនស៊ីធីវ</string>
+    <string name="generator_result_title">លទ្ធផលសែនស៊ីធីវរបស់អ្នក</string>
+    <string name="generator_save">រក្សាទុក</string>
+    <string name="generator_share">ចែករំលែក</string>
+    <string name="generator_explain_title">ពន្យល់ជាភាសាខ្មែរ</string>
+
+    <!-- Weapons -->
+    <string name="weapons_title">អាវុធទាំងអស់</string>
+    <string name="weapons_subtitle">ជ្រើសរើសប្រភេទអាវុធដើម្បីមើលសែនស៊ីធីវលម្អិត</string>
+    <string name="category_smg">SMG</string>
+    <string name="category_smg_kh">កាំភ្លើងខ្លីបាញ់លឿន</string>
+    <string name="category_shotgun">Shotgun</string>
+    <string name="category_shotgun_kh">កាំភ្លើងបាញ់គ្រាប់ធំ</string>
+    <string name="category_rifle">Rifle</string>
+    <string name="category_rifle_kh">កាំភ្លើងវែង</string>
+    <string name="category_marksman">Marksman</string>
+    <string name="category_marksman_kh">កាំភ្លើងបាញ់ចម្ងាយឆ្ងាយ</string>
+    <string name="category_all">ទាំងអស់</string>
+
+    <!-- Weapon details -->
+    <string name="weapon_sensitivity">សែនស៊ីធីវ</string>
+    <string name="weapon_general">ទូទៅ</string>
+    <string name="weapon_red_dot">Red Dot</string>
+    <string name="weapon_scope">Scope</string>
+    <string name="weapon_drag">អូស</string>
+    <string name="weapon_tips">គន្លឹះ</string>
+    <string name="weapon_copy">ចម្លង</string>
+
+    <!-- SMG -->
+    <string name="weapon_mp40">MP40</string>
+    <string name="weapon_mp5">MP5</string>
+    <string name="weapon_ump">UMP</string>
+    <string name="weapon_mac10">MAC10</string>
+    <string name="weapon_p90">P90</string>
+    <string name="weapon_bizon">Bizon</string>
+    <string name="weapon_thompson">Thompson</string>
+    <string name="weapon_vector">Vector</string>
+    <string name="weapon_cg15">CG15</string>
+
+    <!-- Shotgun -->
+    <string name="weapon_m1887">M1887</string>
+    <string name="weapon_m1014">M1014</string>
+    <string name="weapon_mag7">Mag-7</string>
+    <string name="weapon_trogon">Trogon</string>
+    <string name="weapon_m590">M590</string>
+    <string name="weapon_spas12">SPAS12</string>
+
+    <!-- Rifle -->
+    <string name="weapon_plasma">Plasma</string>
+    <string name="weapon_g36">G36</string>
+    <string name="weapon_aug">AUG</string>
+    <string name="weapon_xm8">XM8</string>
+    <string name="weapon_ak47">AK47</string>
+    <string name="weapon_m4a1">M4A1</string>
+    <string name="weapon_parafal">Parafal</string>
+    <string name="weapon_scar">SCAR</string>
+    <string name="weapon_groza">Groza</string>
+    <string name="weapon_famas">FAMAS</string>
+
+    <!-- Marksman -->
+    <string name="weapon_ac80">AC80</string>
+    <string name="weapon_winchester">Winchester</string>
+    <string name="weapon_sks">SKS</string>
+    <string name="weapon_m14">M14</string>
+    <string name="weapon_woodpecker">Woodpecker</string>
+    <string name="weapon_svd">SVD</string>
+    <string name="weapon_m28b">M28B</string>
+
+    <!-- Common -->
+    <string name="action_apply">អនុវត្ត</string>
+    <string name="action_reset">កំណត់ឡើងវិញ</string>
+    <string name="action_more">បន្ថែមទៀត</string>
+    <string name="search_hint">ស្វែងរកអាវុធ...</string>
+    <string name="about_title">អំពីកម្មវិធី</string>
+    <string name="about_desc">Sensitive Pro ត្រូវបានបង្កើតឡើងសម្រាប់អ្នកលេង Free Fire នៅកម្ពុជា ដើម្បីជួយកំណត់សែនស៊ីធីវឲ្យបានត្រឹមត្រូវ និងបាញ់ក្បាលបានកាន់តែច្រើន។</string>
+    <string name="version">កំណែ 1.0.0</string>
+    <string name="made_in_khmer">បង្កើតសម្រាប់សហគមន៍ខ្មែរ 🇰🇭</string>
+</resources>
