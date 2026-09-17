@@ -88,29 +88,41 @@ object DeviceDetector {
         }
     }
 
+    /**
+     * Recommended sensitivity on Free Fire's **0-200 scale**.
+     *
+     * Garena expanded the in-game sensitivity sliders from 0-100 to 0-200, so a
+     * value of 100 on the new scale is only half as fast as the old maximum.
+     * The values below keep the same intent as the previous 0-100 profile
+     * (near-maximum for strong phones) and stay inside the ranges the community
+     * publishes for the 0-200 scale: General 145-200, Red Dot 135-198,
+     * 2x 130-190, 4x 115-175, Sniper 65-140, Free Look 55-200.
+     */
     fun getRecommendedSensitivity(level: PerformanceLevel): Sensitivity {
         return when (level) {
             PerformanceLevel.HIGH -> Sensitivity(
-                general = 95, redDot = 92, scope2x = 88, scope4x = 82, sniper = 60, freeLook = 75, drag = 90
+                general = 190, redDot = 184, scope2x = 176, scope4x = 164, sniper = 120, freeLook = 150, drag = 180
             )
             PerformanceLevel.MEDIUM -> Sensitivity(
-                general = 88, redDot = 85, scope2x = 80, scope4x = 75, sniper = 55, freeLook = 70, drag = 84
+                general = 176, redDot = 170, scope2x = 160, scope4x = 150, sniper = 110, freeLook = 140, drag = 168
             )
             PerformanceLevel.LOW -> Sensitivity(
-                general = 80, redDot = 78, scope2x = 72, scope4x = 68, sniper = 50, freeLook = 65, drag = 78
+                general = 160, redDot = 156, scope2x = 144, scope4x = 136, sniper = 100, freeLook = 130, drag = 156
             )
         }
     }
 
     fun getTipForLevel(level: PerformanceLevel): String {
         return when (level) {
-            PerformanceLevel.HIGH -> "🔥 ទូរស័ព្ទអ្នកខ្លាំង! ប្រើ General 95, Red Dot 92 ដើម្បីអូសលឿន។ បើប្រើ 90Hz/120Hz អេក្រង់នឹងរលូនខ្លាំង។ គួរបើក High FPS ក្នុង Free Fire។ កុំភ្លេចបើក DPI ខ្ពស់បន្តិច (500+) ដើម្បីអូសកាន់តែលឿន។"
-            PerformanceLevel.MEDIUM -> "⚖️ ទូរស័ព្ទកម្រិតមធ្យម ប្រើ General 88, Red Dot 85 ល្អបំផុត។ កុំដាក់ខ្ពស់ពេក បើមិនចឹងនឹងកន្ត្រាក់។ បិទ Background App ដើម្បីលេងបានរលូន។ ប្រើ Graphic Smooth ដើម្បី FPS មានស្ថេរភាព។"
-            PerformanceLevel.LOW -> "🛡️ ទូរស័ព្ទខ្សោយ ត្រូវប្រើ General 80, Red Dot 78 ទាបជាង ដើម្បីទប់កាំភ្លើងបាន។ បិទ Graphic ទាបបំផុត បិទ Shadow និង High FPS។ កុំបើក App ច្រើនពេលលេង។ ដាក់ DPI 380-420 ល្មម។"
+            PerformanceLevel.HIGH -> "🔥 ទូរស័ព្ទអ្នកខ្លាំង! ប្រើ General 190, Red Dot 184 ដើម្បីអូសលឿន។ បើប្រើ 90Hz/120Hz អេក្រង់នឹងរលូនខ្លាំង។ គួរបើក High FPS ក្នុង Free Fire។ កុំភ្លេចបើក DPI ខ្ពស់បន្តិច (500+) ដើម្បីអូសកាន់តែលឿន។\n\n📏 Free Fire ឥឡូវប្រើមាត្រដ្ឋាន 0-200 (មិនមែន 0-100 ទេ)។ បើអ្នកនៅដាក់ 95 ដូចសម័យមុន ការអូសនឹងយឺតជាងមុនពាក់កណ្តាល។"
+            PerformanceLevel.MEDIUM -> "⚖️ ទូរស័ព្ទកម្រិតមធ្យម ប្រើ General 176, Red Dot 170 ល្អបំផុត។ កុំដាក់ខ្ពស់ពេក បើមិនចឹងនឹងកន្ត្រាក់។ បិទ Background App ដើម្បីលេងបានរលូន។ ប្រើ Graphic Smooth ដើម្បី FPS មានស្ថេរភាព។\n\n📏 Free Fire ឥឡូវប្រើមាត្រដ្ឋាន 0-200 (មិនមែន 0-100 ទេ)។ បើអ្នកនៅដាក់ 88 ដូចសម័យមុន ការអូសនឹងយឺតជាងមុនពាក់កណ្តាល។"
+            PerformanceLevel.LOW -> "🛡️ ទូរស័ព្ទខ្សោយ ត្រូវប្រើ General 160, Red Dot 156 ទាបជាង ដើម្បីទប់កាំភ្លើងបាន។ បិទ Graphic ទាបបំផុត បិទ Shadow និង High FPS។ កុំបើក App ច្រើនពេលលេង។ ដាក់ DPI 380-420 ល្មម។\n\n📏 Free Fire ឥឡូវប្រើមាត្រដ្ឋាន 0-200 (មិនមែន 0-100 ទេ)។ បើអ្នកនៅដាក់ 80 ដូចសម័យមុន ការអូសនឹងយឺតជាងមុនពាក់កណ្តាល។"
         }
     }
 
-    // Generator logic: create sensitivity based on inputs
+    // Generator logic: create sensitivity based on inputs.
+    // All weights and clamps are on Free Fire's 0-200 scale (the old 0-100
+    // values were doubled: base 85 -> 170, each +/- step x2, caps x2).
     fun generateCustomSensitivity(
         screenInches: Float,
         ramGB: Int,
@@ -118,53 +130,55 @@ object DeviceDetector {
         fingerCount: Int, // 2,3,4
         style: String // rusher, balanced, sniper
     ): Sensitivity {
-        var baseGeneral = 85
+        var baseGeneral = 170
         // Screen size: larger screen needs lower sensitivity (more distance to drag)
         baseGeneral += when {
-            screenInches < 6.0f -> 6
-            screenInches < 6.5f -> 3
+            screenInches < 6.0f -> 12
+            screenInches < 6.5f -> 6
             screenInches < 6.8f -> 0
-            else -> -4
+            else -> -8
         }
         // RAM
         baseGeneral += when {
-            ramGB >= 12 -> 6
-            ramGB >= 8 -> 3
+            ramGB >= 12 -> 12
+            ramGB >= 8 -> 6
             ramGB >= 6 -> 0
-            ramGB >= 4 -> -3
-            else -> -6
+            ramGB >= 4 -> -6
+            else -> -12
         }
         // DPI
         baseGeneral += when {
-            dpi >= 500 -> 4
-            dpi >= 440 -> 2
+            dpi >= 500 -> 8
+            dpi >= 440 -> 4
             dpi >= 380 -> 0
-            else -> -3
+            else -> -6
         }
         // Finger count: more fingers = can control higher sensitivity
         baseGeneral += when (fingerCount) {
-            4 -> 4
-            3 -> 2
+            4 -> 8
+            3 -> 4
             else -> 0
         }
         // Style
         baseGeneral += when (style) {
-            "rusher" -> 5
-            "sniper" -> -6
+            "rusher" -> 10
+            "sniper" -> -12
             else -> 0
         }
 
-        baseGeneral = baseGeneral.coerceIn(72, 100)
+        // Worst case the weights can reach 170+12+12+8+8+10 = 220, so the
+        // clamp below is what keeps every value inside the in-game slider.
+        baseGeneral = baseGeneral.coerceIn(144, Sensitivity.MAX)
         return Sensitivity(
             general = baseGeneral,
-            redDot = (baseGeneral - 3).coerceIn(68, 98),
-            scope2x = (baseGeneral - 8).coerceIn(64, 94),
-            scope4x = (baseGeneral - 14).coerceIn(60, 90),
-            sniper = (baseGeneral - 32).coerceIn(42, 68),
-            freeLook = (baseGeneral - 18).coerceIn(55, 82),
+            redDot = (baseGeneral - 6).coerceIn(136, 196),
+            scope2x = (baseGeneral - 16).coerceIn(128, 188),
+            scope4x = (baseGeneral - 28).coerceIn(120, 180),
+            sniper = (baseGeneral - 64).coerceIn(84, 136),
+            freeLook = (baseGeneral - 36).coerceIn(110, 164),
             drag = when (style) {
-                "rusher" -> (baseGeneral + 2).coerceIn(74, 100)
-                "sniper" -> (baseGeneral - 4).coerceIn(70, 94)
+                "rusher" -> (baseGeneral + 4).coerceIn(148, Sensitivity.MAX)
+                "sniper" -> (baseGeneral - 8).coerceIn(140, 188)
                 else -> baseGeneral
             }
         )
@@ -184,7 +198,8 @@ object DeviceDetector {
             
             👉 លទ្ធផល General ${sens.general} គឺល្អបំផុតសម្រាប់អ្នក។ 
             ${if (style == "rusher") "អ្នកជា Rusher គួរប្រើខ្ពស់ ដើម្បីបត់លឿន និងអូសក្បាលលឿន។" else if (style == "sniper") "អ្នកជា Sniper គួរប្រើទាប ដើម្បីបាញ់ចំ 100% ពេលប្រើ Scope។" else "តុល្យភាពល្អ សម្រាប់ទាំង Rush និងបាញ់ឆ្ងាយ។"}
-            💡 គន្លឹះ៖ ចម្លងការកំណត់នេះទៅ Free Fire > Settings > Sensitivity ហើយសាកល្បងក្នុង Training Ground 10-15 នាទី។ បើអូសលើសក្បាល បន្ថយ 2-3 ពិន្ទុ បើអូសមិនដល់ បង្កើន 2-3 ពិន្ទុ។
+            📏 មាត្រដ្ឋាន Free Fire ឥឡូវគឺ 0-200 (ពីមុន 0-100)។
+            💡 គន្លឹះ៖ ចម្លងការកំណត់នេះទៅ Free Fire > Settings > Sensitivity ហើយសាកល្បងក្នុង Training Ground 10-15 នាទី។ បើអូសលើសក្បាល បន្ថយ 4-6 ពិន្ទុ បើអូសមិនដល់ បង្កើន 4-6 ពិន្ទុ។
         """.trimIndent()
     }
 }

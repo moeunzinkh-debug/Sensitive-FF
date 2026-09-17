@@ -11,9 +11,16 @@ local.properties
 *.apk
 *.aab
 
-# Keystore
+# Keystore / signing secrets (never commit these)
 *.jks
 *.keystore
+*.p12
+*.pfx
+keystore.properties
 
 # OS
 Thumbs.db
+
+# CI build logs
+build-*.log
+pr-comment.md

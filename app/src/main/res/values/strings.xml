@@ -22,7 +22,7 @@
     <string name="home_feature_drag_desc">បង្កើតម៉ូដែលអូស Headshot ផ្ទាល់ខ្លួន តាមទំហំអេក្រង់ និង DPI</string>
     <string name="home_cta_device">ពិនិត្យទូរស័ព្ទខ្ញុំ</string>
     <string name="home_cta_weapons">មើលអាវុធទាំងអស់</string>
-    <string name="home_stats_weapons">២៥+ អាវុធ</string>
+    <string name="home_stats_weapons">៣២ អាវុធ</string>
     <string name="home_stats_categories">៤ ប្រភេទ</string>
     <string name="home_stats_languages">ខ្មែរ + អង់គ្លេស</string>
 
@@ -147,6 +147,6 @@
     <string name="search_hint">ស្វែងរកអាវុធ...</string>
     <string name="about_title">អំពីកម្មវិធី</string>
     <string name="about_desc">Sensitive Pro ត្រូវបានបង្កើតឡើងសម្រាប់អ្នកលេង Free Fire នៅកម្ពុជា ដើម្បីជួយកំណត់សែនស៊ីធីវឲ្យបានត្រឹមត្រូវ និងបាញ់ក្បាលបានកាន់តែច្រើន។</string>
-    <string name="version">កំណែ 1.0.0</string>
+    <string name="version">កំណែ 1.1.0</string>
     <string name="made_in_khmer">បង្កើតសម្រាប់សហគមន៍ខ្មែរ 🇰🇭</string>
 </resources>

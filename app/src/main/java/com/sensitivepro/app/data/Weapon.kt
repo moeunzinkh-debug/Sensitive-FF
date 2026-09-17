@@ -8,7 +8,30 @@ data class Sensitivity(
     val sniper: Int,
     val freeLook: Int,
     val drag: Int
-)
+) {
+    /** Every value, in the order Free Fire lists them in the Sensitivity menu. */
+    fun values(): List<Int> = listOf(general, redDot, scope2x, scope4x, sniper, freeLook, drag)
+
+    /** True when every value can actually be dialled into the game's sliders. */
+    fun isWithinGameRange(): Boolean = values().all { it in MIN..MAX }
+
+    companion object {
+        /**
+         * Free Fire's sensitivity sliders run from 0 to 200.
+         *
+         * This is an official Garena change, not a tuning preference. From the
+         * Free Fire patch notes (ff.garena.com/en/article/1332/):
+         * "Increased the sensitivity cap to 200. Players can now adjust their
+         * sensitivity settings within a greater range."
+         *
+         * A value of 100 therefore is only about half the available camera
+         * speed; recommendations that were written for the old 0-100 cap are
+         * obsolete.
+         */
+        const val MAX = 200
+        const val MIN = 0
+    }
+}
 
 enum class WeaponCategory(val displayKh: String, val displayEn: String, val colorRes: String, val icon: String) {
     SMG("កាំភ្លើងខ្លីបាញ់លឿន", "SMG", "#FF6B00", "🔫"),
