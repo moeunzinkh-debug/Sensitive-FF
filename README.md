@@ -6,7 +6,7 @@
 > **Package:** `com.sensitivepro.app`  
 > **Version:** 1.0.1 (2)  
 > **Min SDK:** 24 (Android 7.0) | Target SDK 34 | Compile SDK 34  
-> **Signing:** Release APK ចុះហត្ថលេខា v1+v2+v3 (អាចដំឡើងបាន)
+> **Signing:** Release APK ចុះហត្ថលេខា **v2 + v3** (បញ្ជាក់ដោយ `apksigner verify` ក្នុង CI) → ដំឡើងបាន
 
 ---
 
@@ -68,10 +68,22 @@
 
 | ឯកសារ | ការផ្លាស់ប្តូរ |
 |---|---|
-| `app/build.gradle.kts` | បន្ថែម `signingConfigs { create("release") }` + `buildTypes.release.signingConfig` + បើក **v1 + v2 + v3 signing** (v1 ចាំបាច់សម្រាប់ Android 7.0) |
+| `app/build.gradle.kts` | បន្ថែម `signingConfigs { create("release") }` + `buildTypes.release.signingConfig` + បើក **v2 + v3 signing** (v2 គ្រប់គ្រាន់សម្រាប់ Android 7.0 / API 24 ឡើងទៅ) |
 | `keystore.properties.example` | គំរូឯកសារ keystore (ចម្លងទៅ `keystore.properties`) |
 | `.github/workflows/build-apk.yml` | បង្កើត/ប្រើ keystore មុន build + ជំហាន **`apksigner verify`** ដើម្បីបញ្ជាក់ថា APK មានហត្ថលេខាពិត |
 | `.gitignore` | ទប់ស្កាត់ការ commit `*.p12`, `keystore.properties` (ពាក្យសម្ងាត់) |
+
+### 🧪 លទ្ធផលបញ្ជាក់ (GitHub Actions — `apksigner verify`)
+
+```
+app-release.apk signature verified -> Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+```
+
+> ពាក្យ **"Verifies"** មានន័យថា APK មានហត្ថលេខាត្រឹមត្រូវ ហើយ Android នឹងអនុញ្ញាតឲ្យដំឡើង។
+> v1 = false មិនមែនជាបញ្ហាទេ ព្រោះ **v2 មានចាប់ពី Android 7.0 (API 24)** ដែលជា minSdk របស់កម្មវិធីនេះ។
 
 ### 🔑 របៀបបង្កើត Keystore (ធ្វើម្តង ប្រើបានរហូត)
 

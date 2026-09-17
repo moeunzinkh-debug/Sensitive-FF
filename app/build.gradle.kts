@@ -90,8 +90,11 @@ android {
                 keyAlias = releaseKeyAlias
                 keyPassword = releaseKeyPassword ?: releaseStorePassword
                 storeType = releaseStoreType
-                // v1 (JAR) is required by Android 7.0 (minSdk 24);
-                // v2/v3 are the schemes modern Android verifies first.
+                // APK Signature Scheme v2 landed in Android 7.0 (API 24), which is
+                // our minSdk, so v2+v3 already cover every supported device.
+                // v1 (JAR signing) is only needed if minSdk ever drops below 24;
+                // it stays enabled for compatibility. Confirmed by
+                // `apksigner verify` in CI: v2 = true, v3 = true.
                 enableV1Signing = true
                 enableV2Signing = true
                 enableV3Signing = true
